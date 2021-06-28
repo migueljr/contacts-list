@@ -1,37 +1,37 @@
+// In App.js in a new project
 
-import React from 'react';
-import {
-  Text,
-  View
-} from 'react-native';
-import Header from './src/components/Header'
-import ContactsList from './src/components/ContactsList'
-import axios from 'axios'
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import ContactsPage from './src/pages/ContacsPage';
+import ContactDetail from './src/pages/ContactDetail';
 
 
-export default class App extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      contacts:[]
-    }
-  }
-
-  componentDidMount(){
-    axios.get('https://randomuser.me/api/?nat=US&results=5')
-    .then(r=>{
-      this.setState({contacts:r.data.results})
-    })
-  }
-
-
-  render(){
-    return(
-      <View>
-        <Header title="Schedule"/>
-        <ContactsList data={this.state.contacts}/>
-      </View>
-    )
-  }
+const Stack = createStackNavigator();
+const options = {
+  headerStyle: {
+    title:'Contacts',
+    backgroundColor: 'blue',
+    borderBottomColor:"#bbb",
+    borderBottomWidth:1
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    flexGrow:1,
+    textAlign:"center",
+    fontSize:30
+  },
 }
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="ContactDetail">
+        <Stack.Screen name="Contacts" component={ContactsPage} options={options} />
+        <Stack.Screen name="ContactDetail" component={ContactDetail} options={options} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;

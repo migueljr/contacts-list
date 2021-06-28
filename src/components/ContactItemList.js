@@ -1,14 +1,16 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { capitalizeFirstLetter} from '../util'
 
 const ContactItemList = props =>{
     const {contact} = props
     return(
-        <View style={style.line}>
-            <Image style={style.avatar} source={{uri:contact.picture.thumbnail}} />
-            <Text style={style.item}> {capitalizeFirstLetter(contact.name.first)} {contact.name.last} </Text>
-        </View>
+        <TouchableOpacity onPress={()=>alert(contact.name.first)}>
+            <View style={style.line}>
+                <Image style={style.avatar} source={{uri:contact.picture.thumbnail}} />
+                <Text style={style.item}> {capitalizeFirstLetter(contact.name.first)} {contact.name.last} </Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 
